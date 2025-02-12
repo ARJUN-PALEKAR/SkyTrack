@@ -176,3 +176,19 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     alert("Please enter a location.");
   }
 });
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const location = document.getElementById("search").value.trim();
+  if (location) {
+    fetchWeatherData(location);
+  } else {
+    alert("Please enter a location.");
+  }
+});
+
+// Add Enter key event listener
+document.getElementById("search").addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    document.getElementById("searchBtn").click();
+  }
+});
