@@ -119,10 +119,17 @@ async function fetchWeatherDataByCoords(lat, lon) {
 }
 
 function updateWeatherUI(data) {
-  const cityName = data.name;
-  const countryCode = data.sys.country;
+  const cityName = data.name; // City from API response
+  const countryCode = data.sys.country; // Country code
 
-  document.getElementById("location-name").textContent = `${cityName}, ${countryCode}`;
+  // Check if the location has a parent city
+  const parentCity = getParentCity(cityName);
+  
+  // If parentCity is different, format as "Area, City"
+  const displayCity = parentCity !== cityName ? `${cityName}, ${parentCity}` : cityName;
+
+  // Update UI with "Area, City, Country" format
+  document.getElementById("location-name").textContent = `${displayCity}, ${countryCode}`;
   document.getElementById("current-temp").textContent = `${data.main.temp}°C`;
   document.getElementById("weather-condition").textContent = data.weather[0].description;
   document.getElementById("humidity-value").textContent = `${data.main.humidity}%`;
@@ -132,7 +139,7 @@ function updateWeatherUI(data) {
   document.getElementById("uv-index-value").textContent = "N/A";
   document.getElementById("local-time-value").textContent = new Date().toLocaleString();
 
-  fetchLocationPhoto(cityName);
+  fetchLocationPhoto(parentCity);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -177,16 +184,6 @@ document.getElementById("searchBtn").addEventListener("click", () => {
   }
 });
 
-document.getElementById("searchBtn").addEventListener("click", () => {
-  const location = document.getElementById("search").value.trim();
-  if (location) {
-    fetchWeatherData(location);
-  } else {
-    alert("Please enter a location.");
-  }
-});
-
-// Add Enter key event listener
 document.getElementById("search").addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     document.getElementById("searchBtn").click();
