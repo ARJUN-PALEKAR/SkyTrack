@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyTrack - WeatherStack API</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>SkyTrack</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://arjun-palekar.github.io/portfolio/">About Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <input type="text" id="search" placeholder="Enter location">
+      <button id="searchBtn">Search</button>
+    </section>
+
+    <section class="weather-container">
+      <div class="weather-info">
+        <h2 id="location-name">--, --</h2>
+        <h1 id="current-temp">--°C</h1>
+        <p id="weather-condition">Loading...</p>
+
+        <div class="details">
+          <p><strong>Humidity:</strong> <span id="humidity-value">--%</span></p>
+          <p><strong>Wind Speed:</strong> <span id="wind-speed-value">-- km/h</span></p>
+          <p><strong>Feels Like:</strong> <span id="feels-like-value">--°C</span></p>
+          <p><strong>Visibility:</strong> <span id="visibility-value">-- km</span></p>
+          <p><strong>UV Index:</strong> <span id="uv-index-value">--</span></p>
+          <p><strong>Local Time:</strong> <span id="local-time-value">--</span></p>
+        </div>
+      </div>
+
+      <div class="location-photo">
+        <img id="location-photo" src="" alt="Location Photo">
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts.js"></script> 
+</body>
+</html>
