@@ -4,18 +4,13 @@ const unsplashApiKey = "3hrSwUMm8Lxma3cU-lb7SCzHXD4fzlgYqQDrAkjS51M";
 const unsplashApiBase = "https://api.unsplash.com/search/photos";
 
 async function fetchLocationPhoto(location) {
-  let searchQuery = location;
   const parentCity = getParentCity(location);
-  if (parentCity !== location) {
-    console.log(`🔄 Using parent city image instead of ${location}: ${parentCity}`);
-    searchQuery = parentCity;
-  }
 
-  const formattedLocation = encodeURIComponent(searchQuery);
+  const formattedLocation = encodeURIComponent(parentCity);
   const url = `${unsplashApiBase}?query=${formattedLocation}&client_id=${unsplashApiKey}&orientation=landscape&per_page=1`;
 
   try {
-    console.log("📸 Fetching location photo for:", searchQuery);
+    console.log("📸 Fetching location photo for:", parentCity);
     const response = await fetch(url);
     const data = await response.json();
 
@@ -27,7 +22,7 @@ async function fetchLocationPhoto(location) {
       photoUrl = data.results[0].urls.regular;
       console.log("✅ Photo found:", photoUrl);
     } else {
-      console.warn(`⚠️ No specific images found for: ${searchQuery}`);
+      console.warn(`⚠️ No specific images found for: ${parentCity}`);
       photoUrl = `https://source.unsplash.com/600x300/?${encodeURIComponent(parentCity)},city`;
     }
 
@@ -39,24 +34,11 @@ async function fetchLocationPhoto(location) {
 }
 
 function getParentCity(location) {
-  const locationToCityMap = {
-    "Chetput": "Chennai",
-    "Adyar": "Chennai",
-    "Teynampet": "Chennai",
-    "Amboli": "Mumbai",
-    "Andheri": "Mumbai",
-    "Juhu": "Mumbai",
-    "Bandra": "Mumbai",
-    "Pimpri": "Pune",
-    "Chinchwad": "Pune",
-    "Hinjewadi": "Pune",
-    "Shivaji Nagar": "Pune",
-    "Koramangala": "Bangalore",
-    "Whitefield": "Bangalore",
-    "Indiranagar": "Bangalore"
-  };
-
-  return locationToCityMap[location] || location.split(" ")[0];
+  const words = location.split(" ");
+  if (words.length > 1) {
+    return words.slice(-1)[0]; // Take the last word as the parent city
+  }
+  return location; // If it's a single word, return as is
 }
 
 function setImage(imageUrl, location) {
@@ -119,17 +101,12 @@ async function fetchWeatherDataByCoords(lat, lon) {
 }
 
 function updateWeatherUI(data) {
-  const cityName = data.name; // City from API response
-  const countryCode = data.sys.country; // Country code
-
-  // Check if the location has a parent city
+  const cityName = data.name;
+  const countryCode = data.sys.country;
   const parentCity = getParentCity(cityName);
   
-  // If parentCity is different, format as "Area, City"
-  const displayCity = parentCity !== cityName ? `${cityName}, ${parentCity}` : cityName;
-
-  // Update UI with "Area, City, Country" format
-  document.getElementById("location-name").textContent = `${displayCity}, ${countryCode}`;
+  // Format as "Area, City, Country"
+  document.getElementById("location-name").textContent = `${cityName}, ${parentCity}, ${countryCode}`;
   document.getElementById("current-temp").textContent = `${data.main.temp}°C`;
   document.getElementById("weather-condition").textContent = data.weather[0].description;
   document.getElementById("humidity-value").textContent = `${data.main.humidity}%`;
