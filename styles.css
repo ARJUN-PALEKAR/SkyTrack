@@ -50,17 +50,14 @@ button:hover {
   background: #005bb5;
 }
 
-
 .weather-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 2rem;
 }
-
 
 .weather-info {
   background: white;
@@ -69,7 +66,6 @@ button:hover {
   max-width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-  flex: 1;
 }
 
 .weather-info h2 {
@@ -91,21 +87,18 @@ button:hover {
   margin: 0.5rem 0;
 }
 
-
 .location-photo {
-  max-width: 350px; 
+  max-width: 600px;
   border-radius: 8px;
   overflow: hidden;
-  margin-left: 20px;
 }
 
 .location-photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
-
 
 nav ul {
   list-style: none;
@@ -113,9 +106,8 @@ nav ul {
   padding: 0;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 2rem; 
 }
-
 nav ul li {
   display: inline;
 }
@@ -124,7 +116,7 @@ nav ul li a {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.2rem; 
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -132,24 +124,64 @@ nav ul li a {
 
 nav ul li a:hover {
   background-color: #fff;
-  color: #ff0000;
-  text-shadow: none;
+  color: #ff0000; 
+  text-shadow: none; 
+}
+header h1 {
+  margin-bottom: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+
+.weather-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; 
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+#location-photo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px; 
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+
+.weather-info {
+  flex: 1;
+  text-align: left;
 }
 
 
 @media (max-width: 768px) {
   .weather-container {
-    flex-direction: column;
+    flex-direction: column; 
     text-align: center;
   }
 
-  .location-photo {
-    max-width: 100%;
-    margin: 20px auto 0;
-  }
-
-  .location-photo img {
-    width: 100%;
-    max-height: 300px; 
+  #location-photo {
+    max-width: 100%; 
+    margin-right: 0;
+    margin-bottom: 20px; 
   }
 }
